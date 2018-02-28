@@ -1,8 +1,14 @@
 import os
 import cv2
 import numpy as np
+from enum import Enum
 
-MANUAL = False
+CLASSIFY = False
+
+
+class Type:
+    OBJECT = 1
+    BAND = 2
 
 
 def colorfulness(img):
@@ -26,43 +32,56 @@ def colorfulness(img):
     return stdRoot + (0.3 * meanRoot)
 
 
-if not MANUAL:
-    for subdir, dirs, files in os.walk("data/train/videos/frames"):
-        for filename in sorted(files, key=lambda x: int(os.path.splitext(x)[0].split('-')[-1])):
-            if filename.endswith(".jpg"):
-                path = subdir + "/" + filename
+def classify(img):
+    c = colorfulness(img)
+    if c >= 5.5:
+        return Type.OBJECT
+    else:
+        return Type.BAND
 
-                img = cv2.imread(path)
 
-                c = colorfulness(img)
-                if c >= 5.5:
-                    new_path = "data/train/cropped/" + filename
-                else:
-                    new_path = "data/train/band/" + filename
-                os.rename(path, new_path)
+if CLASSIFY:
+    MANUAL = False
+
+    if not MANUAL:
+        for subdir, dirs, files in os.walk("data/train/videos/frames"):
+            for filename in sorted(files, key=lambda x: int(os.path.splitext(x)[0].split('-')[-1])):
+                if filename.endswith(".jpg"):
+                    path = subdir + "/" + filename
+
+                    img = cv2.imread(path)
+
+                    type = classify(img)
+
+                    if type == Type.OBJECT:
+                        new_path = "data/train/cropped/" + filename
+                    elif type == Type.BAND:
+                        new_path = "data/train/band/" + filename
+
+                    os.rename(path, new_path)
+                    print(path + " -> " + new_path)
+
+    if MANUAL:
+        for subdir, dirs, files in os.walk("data/train/videos/frames"):
+            for filename in sorted(files, key=lambda x: int(os.path.splitext(x)[0].split('-')[-1])):
+                if filename.endswith(".jpg"):
+                    path = subdir + "/" + filename
+
+                    img = cv2.imread(path)
+
+                    cv2.namedWindow("image", cv2.WINDOW_NORMAL)
+                    cv2.resizeWindow("image", 1280, 720)
+                    cv2.imshow("image", img)
+
+                    key = cv2.waitKey(0)
+                    if key == ord('b'):
+                        new_path = "data/train/band/" + filename
+                    elif key == ord('s'):
+                        new_path = "data/train/band/shadows/" + filename
+                    elif key == ord('d'):
+                        new_path = "data/train/deleted/" + filename
+                    # enter key
+                    elif key == 13:
+                        new_path = "data/train/cropped/" + filename
+                    os.rename(path, new_path)
                 print(path + " -> " + new_path)
-
-if MANUAL:
-    for subdir, dirs, files in os.walk("data/train/videos/frames"):
-        for filename in sorted(files, key=lambda x: int(os.path.splitext(x)[0].split('-')[-1])):
-            if filename.endswith(".jpg"):
-                path = subdir + "/" + filename
-
-                img = cv2.imread(path)
-
-                cv2.namedWindow("image", cv2.WINDOW_NORMAL)
-                cv2.resizeWindow("image", 1280, 720)
-                cv2.imshow("image", img)
-
-                key = cv2.waitKey(0)
-                if key == ord('b'):
-                    new_path = "data/train/band/" + filename
-                elif key == ord('s'):
-                    new_path = "data/train/band/shadows/" + filename
-                elif key == ord('d'):
-                    new_path = "data/train/deleted/" + filename
-                # enter key
-                elif key == 13:
-                    new_path = "data/train/cropped/" + filename
-                os.rename(path, new_path)
-            print(path + " -> " + new_path)
