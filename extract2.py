@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 
-EXTRACT = False
+EXTRACT = True
 
 fgbg = cv2.createBackgroundSubtractorMOG2(detectShadows=False)
 
@@ -11,8 +11,8 @@ def extract(img):
     fgmask = fgbg.apply(img)
 
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    morphed_open = cv2.morphologyEx(fgmask.astype("uint8"), cv2.MORPH_OPEN, kernel, iterations=5)
-    morphed_closed = cv2.morphologyEx(morphed_open.astype("uint8"), cv2.MORPH_CLOSE, kernel, iterations=20)
+    morphed_open = cv2.morphologyEx(fgmask.astype("uint8"), cv2.MORPH_OPEN, kernel, iterations=3)
+    morphed_closed = cv2.morphologyEx(morphed_open.astype("uint8"), cv2.MORPH_CLOSE, kernel, iterations=3)
 
     return morphed_closed, fgmask, morphed_open
 
@@ -21,9 +21,6 @@ if EXTRACT:
     SHOW = False
     SAVE = True
     SAVE_MASK = True
-
-    avg_dataset = cv2.imread("data/train/avg_dataset.png")
-
 
     if SHOW:
         windows = ["original", "mog", "morphed_open", "morphed_closed", "masked"]

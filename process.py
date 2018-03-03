@@ -18,16 +18,16 @@ def process(img):
     img = crop.crop(img)
     t = classify.classify(img)
     if t == Type.BAND:
-        return t, img, None
-    mask = extract2.extract(img)
-    img = cv2.bitwise_and(img, img, mask=mask)
+        return t, None, img, img, (None, None, None, None)
+    mask, _, _ = extract2.extract(img)
+    masked = cv2.bitwise_and(img, img, mask=mask)
     x, y, w, h = watch_features.bounding_box(mask)
-    img = img[y:y+h, x:x+w]
+    #img = img[y:y+h, x:x+w]
     f = features.get_features(img)
-    return t, f, img, (x, y, w, h)
+    return t, f, img, masked, (x, y, w, h)
 
 
-def process_all_videos(path):
+#def process_all_videos(path):
 
 
 def process_all_images(path):
@@ -51,8 +51,8 @@ def process_all_images(path):
 
 if TRAIN:
     process_all_images(TRAIN_PATH)
-    process_all_videos(TRAIN_PATH)
+    #process_all_videos(TRAIN_PATH)
 
 if TEST:
     process_all_images(TEST_PATH)
-    process_all_videos(TEST_PATH)
+    #process_all_videos(TEST_PATH)
