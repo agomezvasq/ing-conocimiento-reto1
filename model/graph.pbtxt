@@ -16574,7 +16574,7 @@ node {
   }
 }
 node {
-  name: "dnn/Const"
+  name: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad/Initializer/Const"
   op: "Const"
   attr {
     key: "_class"
@@ -16624,7 +16624,7 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
+  name: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
   op: "VariableV2"
   attr {
     key: "_class"
@@ -16682,10 +16682,10 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad/Assign"
+  name: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad/Assign"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
-  input: "dnn/Const"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad/Initializer/Const"
   attr {
     key: "T"
     value {
@@ -16729,9 +16729,9 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad/read"
+  name: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad/read"
   op: "Identity"
-  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
   attr {
     key: "T"
     value {
@@ -16763,7 +16763,7 @@ node {
   }
 }
 node {
-  name: "dnn/Const_1"
+  name: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad/Initializer/Const"
   op: "Const"
   attr {
     key: "_class"
@@ -16807,7 +16807,7 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
+  name: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
   op: "VariableV2"
   attr {
     key: "_class"
@@ -16859,10 +16859,10 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad/Assign"
+  name: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad/Assign"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
-  input: "dnn/Const_1"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad/Initializer/Const"
   attr {
     key: "T"
     value {
@@ -16903,9 +16903,9 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad/read"
+  name: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad/read"
   op: "Identity"
-  input: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
   attr {
     key: "T"
     value {
@@ -16934,7 +16934,7 @@ node {
   }
 }
 node {
-  name: "dnn/Const_2"
+  name: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad/Initializer/Const"
   op: "Const"
   attr {
     key: "_class"
@@ -16984,7 +16984,7 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
+  name: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
   op: "VariableV2"
   attr {
     key: "_class"
@@ -17042,10 +17042,10 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad/Assign"
+  name: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad/Assign"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
-  input: "dnn/Const_2"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad/Initializer/Const"
   attr {
     key: "T"
     value {
@@ -17089,9 +17089,9 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad/read"
+  name: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad/read"
   op: "Identity"
-  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
   attr {
     key: "T"
     value {
@@ -17123,7 +17123,7 @@ node {
   }
 }
 node {
-  name: "dnn/Const_3"
+  name: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad/Initializer/Const"
   op: "Const"
   attr {
     key: "_class"
@@ -17167,7 +17167,7 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
+  name: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
   op: "VariableV2"
   attr {
     key: "_class"
@@ -17219,10 +17219,10 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad/Assign"
+  name: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad/Assign"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
-  input: "dnn/Const_3"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad/Initializer/Const"
   attr {
     key: "T"
     value {
@@ -17263,9 +17263,9 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad/read"
+  name: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad/read"
   op: "Identity"
-  input: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
   attr {
     key: "T"
     value {
@@ -17294,7 +17294,7 @@ node {
   }
 }
 node {
-  name: "dnn/Const_4"
+  name: "dnn/dnn/logits/kernel/part_0/Adagrad/Initializer/Const"
   op: "Const"
   attr {
     key: "_class"
@@ -17344,7 +17344,7 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
+  name: "dnn/dnn/logits/kernel/part_0/Adagrad"
   op: "VariableV2"
   attr {
     key: "_class"
@@ -17402,10 +17402,10 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad/Assign"
+  name: "dnn/dnn/logits/kernel/part_0/Adagrad/Assign"
   op: "Assign"
-  input: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
-  input: "dnn/Const_4"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad/Initializer/Const"
   attr {
     key: "T"
     value {
@@ -17449,9 +17449,9 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad/read"
+  name: "dnn/dnn/logits/kernel/part_0/Adagrad/read"
   op: "Identity"
-  input: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad"
   attr {
     key: "T"
     value {
@@ -17483,7 +17483,7 @@ node {
   }
 }
 node {
-  name: "dnn/Const_5"
+  name: "dnn/dnn/logits/bias/part_0/Adagrad/Initializer/Const"
   op: "Const"
   attr {
     key: "_class"
@@ -17527,7 +17527,7 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
+  name: "dnn/dnn/logits/bias/part_0/Adagrad"
   op: "VariableV2"
   attr {
     key: "_class"
@@ -17579,10 +17579,10 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/logits/bias/part_0/ProximalAdagrad/Assign"
+  name: "dnn/dnn/logits/bias/part_0/Adagrad/Assign"
   op: "Assign"
-  input: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
-  input: "dnn/Const_5"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad/Initializer/Const"
   attr {
     key: "T"
     value {
@@ -17623,9 +17623,9 @@ node {
   }
 }
 node {
-  name: "dnn/dnn/logits/bias/part_0/ProximalAdagrad/read"
+  name: "dnn/dnn/logits/bias/part_0/Adagrad/read"
   op: "Identity"
-  input: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad"
   attr {
     key: "T"
     value {
@@ -17654,7 +17654,7 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/learning_rate"
+  name: "dnn/Adagrad/learning_rate"
   op: "Const"
   attr {
     key: "_output_shapes"
@@ -17678,79 +17678,17 @@ node {
         dtype: DT_FLOAT
         tensor_shape {
         }
-        float_val: 0.009999999776482582
+        float_val: 0.05000000074505806
       }
     }
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/l1_regularization_strength"
-  op: "Const"
-  attr {
-    key: "_output_shapes"
-    value {
-      list {
-        shape {
-        }
-      }
-    }
-  }
-  attr {
-    key: "dtype"
-    value {
-      type: DT_FLOAT
-    }
-  }
-  attr {
-    key: "value"
-    value {
-      tensor {
-        dtype: DT_FLOAT
-        tensor_shape {
-        }
-        float_val: 0.0
-      }
-    }
-  }
-}
-node {
-  name: "dnn/ProximalAdagrad/l2_regularization_strength"
-  op: "Const"
-  attr {
-    key: "_output_shapes"
-    value {
-      list {
-        shape {
-        }
-      }
-    }
-  }
-  attr {
-    key: "dtype"
-    value {
-      type: DT_FLOAT
-    }
-  }
-  attr {
-    key: "value"
-    value {
-      tensor {
-        dtype: DT_FLOAT
-        tensor_shape {
-        }
-        float_val: 0.009999999776482582
-      }
-    }
-  }
-}
-node {
-  name: "dnn/ProximalAdagrad/update_dnn/hiddenlayer_0/kernel/part_0/ApplyProximalAdagrad"
-  op: "ApplyProximalAdagrad"
+  name: "dnn/Adagrad/update_dnn/hiddenlayer_0/kernel/part_0/ApplyAdagrad"
+  op: "ApplyAdagrad"
   input: "dnn/hiddenlayer_0/kernel/part_0"
-  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
-  input: "dnn/ProximalAdagrad/learning_rate"
-  input: "dnn/ProximalAdagrad/l1_regularization_strength"
-  input: "dnn/ProximalAdagrad/l2_regularization_strength"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
+  input: "dnn/Adagrad/learning_rate"
   input: "dnn/gradients/dnn/hiddenlayer_0/MatMul_grad/tuple/control_dependency_1"
   attr {
     key: "T"
@@ -17789,13 +17727,11 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/update_dnn/hiddenlayer_0/bias/part_0/ApplyProximalAdagrad"
-  op: "ApplyProximalAdagrad"
+  name: "dnn/Adagrad/update_dnn/hiddenlayer_0/bias/part_0/ApplyAdagrad"
+  op: "ApplyAdagrad"
   input: "dnn/hiddenlayer_0/bias/part_0"
-  input: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
-  input: "dnn/ProximalAdagrad/learning_rate"
-  input: "dnn/ProximalAdagrad/l1_regularization_strength"
-  input: "dnn/ProximalAdagrad/l2_regularization_strength"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
+  input: "dnn/Adagrad/learning_rate"
   input: "dnn/gradients/dnn/hiddenlayer_0/BiasAdd_grad/tuple/control_dependency_1"
   attr {
     key: "T"
@@ -17831,13 +17767,11 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/update_dnn/hiddenlayer_1/kernel/part_0/ApplyProximalAdagrad"
-  op: "ApplyProximalAdagrad"
+  name: "dnn/Adagrad/update_dnn/hiddenlayer_1/kernel/part_0/ApplyAdagrad"
+  op: "ApplyAdagrad"
   input: "dnn/hiddenlayer_1/kernel/part_0"
-  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
-  input: "dnn/ProximalAdagrad/learning_rate"
-  input: "dnn/ProximalAdagrad/l1_regularization_strength"
-  input: "dnn/ProximalAdagrad/l2_regularization_strength"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
+  input: "dnn/Adagrad/learning_rate"
   input: "dnn/gradients/dnn/hiddenlayer_1/MatMul_grad/tuple/control_dependency_1"
   attr {
     key: "T"
@@ -17876,13 +17810,11 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/update_dnn/hiddenlayer_1/bias/part_0/ApplyProximalAdagrad"
-  op: "ApplyProximalAdagrad"
+  name: "dnn/Adagrad/update_dnn/hiddenlayer_1/bias/part_0/ApplyAdagrad"
+  op: "ApplyAdagrad"
   input: "dnn/hiddenlayer_1/bias/part_0"
-  input: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
-  input: "dnn/ProximalAdagrad/learning_rate"
-  input: "dnn/ProximalAdagrad/l1_regularization_strength"
-  input: "dnn/ProximalAdagrad/l2_regularization_strength"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
+  input: "dnn/Adagrad/learning_rate"
   input: "dnn/gradients/dnn/hiddenlayer_1/BiasAdd_grad/tuple/control_dependency_1"
   attr {
     key: "T"
@@ -17918,13 +17850,11 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/update_dnn/logits/kernel/part_0/ApplyProximalAdagrad"
-  op: "ApplyProximalAdagrad"
+  name: "dnn/Adagrad/update_dnn/logits/kernel/part_0/ApplyAdagrad"
+  op: "ApplyAdagrad"
   input: "dnn/logits/kernel/part_0"
-  input: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
-  input: "dnn/ProximalAdagrad/learning_rate"
-  input: "dnn/ProximalAdagrad/l1_regularization_strength"
-  input: "dnn/ProximalAdagrad/l2_regularization_strength"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad"
+  input: "dnn/Adagrad/learning_rate"
   input: "dnn/gradients/dnn/logits/MatMul_grad/tuple/control_dependency_1"
   attr {
     key: "T"
@@ -17963,13 +17893,11 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/update_dnn/logits/bias/part_0/ApplyProximalAdagrad"
-  op: "ApplyProximalAdagrad"
+  name: "dnn/Adagrad/update_dnn/logits/bias/part_0/ApplyAdagrad"
+  op: "ApplyAdagrad"
   input: "dnn/logits/bias/part_0"
-  input: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
-  input: "dnn/ProximalAdagrad/learning_rate"
-  input: "dnn/ProximalAdagrad/l1_regularization_strength"
-  input: "dnn/ProximalAdagrad/l2_regularization_strength"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad"
+  input: "dnn/Adagrad/learning_rate"
   input: "dnn/gradients/dnn/logits/BiasAdd_grad/tuple/control_dependency_1"
   attr {
     key: "T"
@@ -18005,19 +17933,19 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad/update"
+  name: "dnn/Adagrad/update"
   op: "NoOp"
-  input: "^dnn/ProximalAdagrad/update_dnn/hiddenlayer_0/kernel/part_0/ApplyProximalAdagrad"
-  input: "^dnn/ProximalAdagrad/update_dnn/hiddenlayer_0/bias/part_0/ApplyProximalAdagrad"
-  input: "^dnn/ProximalAdagrad/update_dnn/hiddenlayer_1/kernel/part_0/ApplyProximalAdagrad"
-  input: "^dnn/ProximalAdagrad/update_dnn/hiddenlayer_1/bias/part_0/ApplyProximalAdagrad"
-  input: "^dnn/ProximalAdagrad/update_dnn/logits/kernel/part_0/ApplyProximalAdagrad"
-  input: "^dnn/ProximalAdagrad/update_dnn/logits/bias/part_0/ApplyProximalAdagrad"
+  input: "^dnn/Adagrad/update_dnn/hiddenlayer_0/kernel/part_0/ApplyAdagrad"
+  input: "^dnn/Adagrad/update_dnn/hiddenlayer_0/bias/part_0/ApplyAdagrad"
+  input: "^dnn/Adagrad/update_dnn/hiddenlayer_1/kernel/part_0/ApplyAdagrad"
+  input: "^dnn/Adagrad/update_dnn/hiddenlayer_1/bias/part_0/ApplyAdagrad"
+  input: "^dnn/Adagrad/update_dnn/logits/kernel/part_0/ApplyAdagrad"
+  input: "^dnn/Adagrad/update_dnn/logits/bias/part_0/ApplyAdagrad"
 }
 node {
-  name: "dnn/ProximalAdagrad/value"
+  name: "dnn/Adagrad/value"
   op: "Const"
-  input: "^dnn/ProximalAdagrad/update"
+  input: "^dnn/Adagrad/update"
   attr {
     key: "_class"
     value {
@@ -18054,10 +17982,10 @@ node {
   }
 }
 node {
-  name: "dnn/ProximalAdagrad"
+  name: "dnn/Adagrad"
   op: "AssignAdd"
   input: "global_step"
-  input: "dnn/ProximalAdagrad/value"
+  input: "dnn/Adagrad/value"
   attr {
     key: "T"
     value {
@@ -18098,12 +18026,12 @@ node {
   input: "^dnn/hiddenlayer_1/bias/part_0/Assign"
   input: "^dnn/logits/kernel/part_0/Assign"
   input: "^dnn/logits/bias/part_0/Assign"
-  input: "^dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad/Assign"
-  input: "^dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad/Assign"
-  input: "^dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad/Assign"
-  input: "^dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad/Assign"
-  input: "^dnn/dnn/logits/kernel/part_0/ProximalAdagrad/Assign"
-  input: "^dnn/dnn/logits/bias/part_0/ProximalAdagrad/Assign"
+  input: "^dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad/Assign"
+  input: "^dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad/Assign"
+  input: "^dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad/Assign"
+  input: "^dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad/Assign"
+  input: "^dnn/dnn/logits/kernel/part_0/Adagrad/Assign"
+  input: "^dnn/dnn/logits/bias/part_0/Adagrad/Assign"
 }
 node {
   name: "init_1"
@@ -18314,7 +18242,7 @@ node {
 node {
   name: "report_uninitialized_variables/IsVariableInitialized_7"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -18342,7 +18270,7 @@ node {
 node {
   name: "report_uninitialized_variables/IsVariableInitialized_8"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -18370,7 +18298,7 @@ node {
 node {
   name: "report_uninitialized_variables/IsVariableInitialized_9"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -18398,7 +18326,7 @@ node {
 node {
   name: "report_uninitialized_variables/IsVariableInitialized_10"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -18426,7 +18354,7 @@ node {
 node {
   name: "report_uninitialized_variables/IsVariableInitialized_11"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -18454,7 +18382,7 @@ node {
 node {
   name: "report_uninitialized_variables/IsVariableInitialized_12"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -18584,12 +18512,12 @@ node {
         string_val: "dnn/hiddenlayer_1/bias/part_0"
         string_val: "dnn/logits/kernel/part_0"
         string_val: "dnn/logits/bias/part_0"
-        string_val: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
+        string_val: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
+        string_val: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
+        string_val: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
+        string_val: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
+        string_val: "dnn/dnn/logits/kernel/part_0/Adagrad"
+        string_val: "dnn/dnn/logits/bias/part_0/Adagrad"
       }
     }
   }
@@ -19897,7 +19825,7 @@ node {
 node {
   name: "report_uninitialized_variables_1/IsVariableInitialized_7"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -19925,7 +19853,7 @@ node {
 node {
   name: "report_uninitialized_variables_1/IsVariableInitialized_8"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -19953,7 +19881,7 @@ node {
 node {
   name: "report_uninitialized_variables_1/IsVariableInitialized_9"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -19981,7 +19909,7 @@ node {
 node {
   name: "report_uninitialized_variables_1/IsVariableInitialized_10"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -20009,7 +19937,7 @@ node {
 node {
   name: "report_uninitialized_variables_1/IsVariableInitialized_11"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -20037,7 +19965,7 @@ node {
 node {
   name: "report_uninitialized_variables_1/IsVariableInitialized_12"
   op: "IsVariableInitialized"
-  input: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad"
   attr {
     key: "_class"
     value {
@@ -20167,12 +20095,12 @@ node {
         string_val: "dnn/hiddenlayer_1/bias/part_0"
         string_val: "dnn/logits/kernel/part_0"
         string_val: "dnn/logits/bias/part_0"
-        string_val: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
-        string_val: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
+        string_val: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
+        string_val: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
+        string_val: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
+        string_val: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
+        string_val: "dnn/dnn/logits/kernel/part_0/Adagrad"
+        string_val: "dnn/dnn/logits/bias/part_0/Adagrad"
       }
     }
   }
@@ -21281,7 +21209,7 @@ node {
         dtype: DT_STRING
         tensor_shape {
         }
-        string_val: "_temp_5a2d762930444a75824065ea18858a6c/part"
+        string_val: "_temp_17282cfc5fd241c58cc0d7486474dc6f/part"
       }
     }
   }
@@ -21424,17 +21352,17 @@ node {
           }
         }
         string_val: "dnn/hiddenlayer_0/bias"
-        string_val: "dnn/hiddenlayer_0/bias/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_0/bias/t_0/Adagrad"
         string_val: "dnn/hiddenlayer_0/kernel"
-        string_val: "dnn/hiddenlayer_0/kernel/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_0/kernel/t_0/Adagrad"
         string_val: "dnn/hiddenlayer_1/bias"
-        string_val: "dnn/hiddenlayer_1/bias/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_1/bias/t_0/Adagrad"
         string_val: "dnn/hiddenlayer_1/kernel"
-        string_val: "dnn/hiddenlayer_1/kernel/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_1/kernel/t_0/Adagrad"
         string_val: "dnn/logits/bias"
-        string_val: "dnn/logits/bias/t_0/ProximalAdagrad"
+        string_val: "dnn/logits/bias/t_0/Adagrad"
         string_val: "dnn/logits/kernel"
-        string_val: "dnn/logits/kernel/t_0/ProximalAdagrad"
+        string_val: "dnn/logits/kernel/t_0/Adagrad"
         string_val: "global_step"
       }
     }
@@ -21496,17 +21424,17 @@ node {
   input: "save/SaveV2/tensor_names"
   input: "save/SaveV2/shape_and_slices"
   input: "dnn/hiddenlayer_0/bias/part_0/read"
-  input: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad/read"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad/read"
   input: "dnn/hiddenlayer_0/kernel/part_0/read"
-  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad/read"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad/read"
   input: "dnn/hiddenlayer_1/bias/part_0/read"
-  input: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad/read"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad/read"
   input: "dnn/hiddenlayer_1/kernel/part_0/read"
-  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad/read"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad/read"
   input: "dnn/logits/bias/part_0/read"
-  input: "dnn/dnn/logits/bias/part_0/ProximalAdagrad/read"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad/read"
   input: "dnn/logits/kernel/part_0/read"
-  input: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad/read"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad/read"
   input: "global_step"
   device: "/device:CPU:0"
   attr {
@@ -21666,17 +21594,17 @@ node {
           }
         }
         string_val: "dnn/hiddenlayer_0/bias"
-        string_val: "dnn/hiddenlayer_0/bias/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_0/bias/t_0/Adagrad"
         string_val: "dnn/hiddenlayer_0/kernel"
-        string_val: "dnn/hiddenlayer_0/kernel/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_0/kernel/t_0/Adagrad"
         string_val: "dnn/hiddenlayer_1/bias"
-        string_val: "dnn/hiddenlayer_1/bias/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_1/bias/t_0/Adagrad"
         string_val: "dnn/hiddenlayer_1/kernel"
-        string_val: "dnn/hiddenlayer_1/kernel/t_0/ProximalAdagrad"
+        string_val: "dnn/hiddenlayer_1/kernel/t_0/Adagrad"
         string_val: "dnn/logits/bias"
-        string_val: "dnn/logits/bias/t_0/ProximalAdagrad"
+        string_val: "dnn/logits/bias/t_0/Adagrad"
         string_val: "dnn/logits/kernel"
-        string_val: "dnn/logits/kernel/t_0/ProximalAdagrad"
+        string_val: "dnn/logits/kernel/t_0/Adagrad"
         string_val: "global_step"
       }
     }
@@ -21894,7 +21822,7 @@ node {
 node {
   name: "save/Assign_1"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_0/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/bias/part_0/Adagrad"
   input: "save/RestoreV2:1"
   attr {
     key: "T"
@@ -21985,7 +21913,7 @@ node {
 node {
   name: "save/Assign_3"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_0/kernel/part_0/Adagrad"
   input: "save/RestoreV2:3"
   attr {
     key: "T"
@@ -22076,7 +22004,7 @@ node {
 node {
   name: "save/Assign_5"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_1/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/bias/part_0/Adagrad"
   input: "save/RestoreV2:5"
   attr {
     key: "T"
@@ -22167,7 +22095,7 @@ node {
 node {
   name: "save/Assign_7"
   op: "Assign"
-  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/hiddenlayer_1/kernel/part_0/Adagrad"
   input: "save/RestoreV2:7"
   attr {
     key: "T"
@@ -22258,7 +22186,7 @@ node {
 node {
   name: "save/Assign_9"
   op: "Assign"
-  input: "dnn/dnn/logits/bias/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/bias/part_0/Adagrad"
   input: "save/RestoreV2:9"
   attr {
     key: "T"
@@ -22349,7 +22277,7 @@ node {
 node {
   name: "save/Assign_11"
   op: "Assign"
-  input: "dnn/dnn/logits/kernel/part_0/ProximalAdagrad"
+  input: "dnn/dnn/logits/kernel/part_0/Adagrad"
   input: "save/RestoreV2:11"
   attr {
     key: "T"
