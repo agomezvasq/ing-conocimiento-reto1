@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 
-EXTRACT = True
+EXTRACT = False
 
 fgbg = cv2.createBackgroundSubtractorMOG2(detectShadows=False)
 
@@ -36,9 +36,9 @@ if EXTRACT:
                 i = 0
                 j += 1
 
-    for subdir, dirs, files in os.walk("data/train/cropped"):
+    for subdir, dirs, files in os.walk("data/train/cropped2"):
         for filename in files:
-            if filename.endswith(".jpg"):
+            if filename.endswith(".png"):
                 img = cv2.imread(subdir + "/" + filename)
 
                 mask, fgmask, morphed_open = extract(img)

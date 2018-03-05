@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 
-WATCH_FEATURES = False
+WATCH_FEATURES = True
 
 
 def bounding_box(mask):
@@ -47,12 +47,15 @@ if WATCH_FEATURES:
                 _, thresh = cv2.threshold(img, 220, 255, cv2.THRESH_BINARY)
 
                 parts = os.path.splitext(filename)
-                original = cv2.imread("data/train/cropped/" + os.path.basename(subdir) + "/" + parts[0] + ".jpg")
+                original = cv2.imread("data/train/cropped2/" + os.path.basename(subdir) + "/" + parts[0] + ".png")
 
                 masked = cv2.bitwise_and(original, original, mask=img)
 
                 x, y, w, h = bounding_box(thresh)
                 #cv2.rectangle(original, (x, y), (x + w, y + h), (0, 255, 0), thickness=4)
+
+                if w == 0 or h == 0:
+                    continue
 
                 object_cropped = masked[y:y+h, x:x+w]
 
