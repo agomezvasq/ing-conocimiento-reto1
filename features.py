@@ -5,6 +5,7 @@ import tensorflow as tf
 import pickle
 
 OVERWRITE = False
+TRAIN = False
 
 
 def get_features(img):
@@ -46,6 +47,22 @@ def eval_input_fn(features, labels, batch_size):
     return dataset.batch(batch_size)
 
 
+def feed(img):
+    features = get_features(img)
+
+    #x = dict(list(zip(feature_names, np.array(features).T)))
+    x = {feature_names[i]: [features[i]] for i in range(18)}
+
+    predictions = classifier.predict(input_fn=lambda: eval_input_fn(x, labels=None, batch_size=1))
+
+    prediction = next(predictions)
+
+    class_id = prediction["class_ids"][0]
+    probability = prediction["probabilities"][class_id]
+
+    return classes[class_id], str(probability * 100) + "%"
+
+
 classes = ["chocorramo", "flow_blanca", "flow_negra", "frunas_amarilla", "frunas_naranja",
            "frunas_roja", "frunas_verde", "jet_azul", "jumbo_naranja", "jumbo_roja"]
 class_dict = {classes[i]: i for i in range(10)}
@@ -57,7 +74,7 @@ feature_names = ["r_h1", "r_h2", "r_h3",
                  "g_sigma_h1", "g_sigma_h2", "g_sigma_h3",
                  "b_sigma_h1", "b_sigma_h2", "b_sigma_h3"]
 
-if not os.path.exists("features/features") or OVERWRITE:
+if not os.path.exists("a/features") or OVERWRITE:
     tr_x = []
     tr_y = []
     t_x = []
@@ -89,10 +106,10 @@ if not os.path.exists("features/features") or OVERWRITE:
     test_x = dict(list(zip(feature_names, np.array(t_x).T)))
     test_y = t_y
 
-    with open("features/features", "wb") as f:
+    with open("a/features", "wb") as f:
         pickle.dump((train_x, train_y, test_x, test_y), f)
 else:
-    with open("features/features", "rb") as f:
+    with open("a/features", "rb") as f:
         train_x, train_y, test_x, test_y = pickle.load(f)
 
 feature_columns = [tf.feature_column.numeric_column(key=feature_name) for feature_name in feature_names]
@@ -102,9 +119,10 @@ classifier = tf.estimator.DNNClassifier(feature_columns=feature_columns,
                                         n_classes=10,
                                         model_dir="model")
 
-classifier.train(input_fn=lambda: train_input_fn(train_x, train_y, 100),
-                 steps=10000)
+if TRAIN:
+    classifier.train(input_fn=lambda: train_input_fn(train_x, train_y, 1),
+                     steps=10000)
 
-eval_result = classifier.evaluate(input_fn=lambda: eval_input_fn(test_x, test_y, 100))
+eval_result = classifier.evaluate(input_fn=lambda: eval_input_fn(test_x, test_y, 1))
 
 print(eval_result)

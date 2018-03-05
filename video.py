@@ -1,6 +1,7 @@
 import cv2
 import process
 from classify import Type
+import features
 
 filename = "data/test/videos/2018-02-23-093504.webm"
 
@@ -16,6 +17,10 @@ while cap.isOpened():
 
     if t != Type.BAND:
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), thickness=2)
+
+        cropped_img = masked[y:y + h, x:x + w]
+
+        print(features.feed(cropped_img))
 
     cv2.imshow("window", img)
 

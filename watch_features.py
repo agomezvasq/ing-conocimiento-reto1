@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 
-WATCH_FEATURES = True
+WATCH_FEATURES = False
 
 
 def bounding_box(mask):
