@@ -39,7 +39,7 @@ def process_all_images(path):
             if filename.endswith(".jpg"):
                 img = cv2.imread(subdir + "/" + filename)
 
-                t, f, img, (x, y, w, h) = process(img)
+                t, f, img, masked, (x, y, w, h) = process(img)
                 if t == Type.BAND:
                     os.rename(subdir + "/" + filename, band_path + "/" + filename)
                     continue

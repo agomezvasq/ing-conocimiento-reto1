@@ -16,12 +16,12 @@ while cap.isOpened():
     t, f, img, masked, (x, y, w, h) = process.process(img)
 
     if t != Type.BAND:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), thickness=2)
+        cv2.rectangle(masked, (x, y), (x + w, y + h), (0, 0, 255), thickness=2)
 
         cropped_img = masked[y:y + h, x:x + w]
 
         print(features.feed(cropped_img))
 
-    cv2.imshow("window", img)
+    cv2.imshow("window", masked)
 
     cv2.waitKey(33)

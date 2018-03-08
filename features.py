@@ -1,9 +1,10 @@
 import cv2
 import os
 import numpy as np
-#import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.optimizers import SGD
+from keras.models import load_model
 import pickle
 
 OVERWRITE = False
@@ -23,7 +24,63 @@ def get_features(img):
     g_sigma_h = np.array([np.std(g_hist[:85]), np.std(g_hist[86:170]), np.std(g_hist[170:])])
     b_sigma_h = np.array([np.std(b_hist[:85]), np.std(b_hist[86:170]), np.std(b_hist[170:])])
 
-    return np.concatenate((r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h))
+    img = cv2.copyMakeBorder(img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[0, 0, 0])
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY)
+
+    cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[1]
+    max_area = 0
+    max_area_cnt = None
+    for cnt in cnts:
+        _x, _y, _w, _h = cv2.boundingRect(cnt)
+        area = _w * _h
+        if area > max_area:
+            max_area = area
+            max_area_cnt = cnt
+
+    #cont = thresh.copy()
+    #cv2.drawContours(cont, cnts, -1, (0, 0, 255), thickness=2)
+    #cv2.imshow("window", cont)
+    #cv2.waitKey(0)
+
+    #hull = cv2.convexHull(max_area_cnt)
+
+    #print(max_area)
+
+    _, (width, height), _ = cv2.minAreaRect(max_area_cnt)
+
+    area = width * height
+
+    #r_h /= 10000
+    #g_h /= 10000
+    #b_h /= 10000
+
+    #r_sigma_h /= 16384
+    #g_sigma_h /= 16384
+    #b_sigma_h /= 16384
+
+    #mx = np.sqrt(720 ** 2 + 1080 ** 2)
+
+    #width /= mx
+    #height /= mx
+    #area /= 720 * 1080
+
+    #cont = img.copy()
+    #box = cv2.boxPoints(rect)
+    #box = np.int0(box)
+    #cv2.drawContours(cont, [box], 0, (255, 255, 255), thickness=2)
+    #cv2.imshow("window", cont)
+    #cv2.waitKey(0)
+
+    #print(rect)
+
+    #print(width, height, area)
+
+    #print(r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h, np.array([width, height, area]))
+
+    return np.concatenate((r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h, np.array([width, height, area])))
 
 
 def shuffle_unison(a, b):
@@ -31,54 +88,29 @@ def shuffle_unison(a, b):
     return a[p], b[p]
 
 
-#def train_input_fn(features, labels, batch_size):
-#    dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
+def normalize(a):
+    a_prime = (a - np.mean(a, 0)) / np.std(a, 0)
 
-#    return dataset.shuffle(10000).repeat().batch(batch_size)
-
-
-#def eval_input_fn(features, labels, batch_size):
-#    features = dict(features)
-#    if labels is None:
-#        inputs = features
-#    else:
-#        inputs = (features, labels)
-
-#    dataset = tf.data.Dataset.from_tensor_slices(inputs)
-
-#    return dataset.batch(batch_size)
+    return (a_prime + 1) / 2
 
 
 def feed(img):
     features = get_features(img)
 
-    #x = dict(list(zip(feature_names, np.array(features).T)))
-    x = np.array(features)
+    x = np.array([features])
 
-    classes = model.predict(x, batch_size=10)
+    x = (x - mean) / std
 
-    return classes
+    prediction = model.predict(x, batch_size=10)[0]
 
-#    predictions = classifier.predict(input_fn=lambda: eval_input_fn(x, labels=None, batch_size=1))
+    index = np.argmax(prediction)
 
-#    prediction = next(predictions)
-
-#    class_id = prediction["class_ids"][0]
-#    probability = prediction["probabilities"][class_id]
-
-#    return classes[class_id], str(probability * 100) + "%"
+    return classes[index], "Probability: " + "{0:.2f}".format(prediction[index] * 100) + "%"
 
 
 classes = ["chocorramo", "flow_blanca", "flow_negra", "frunas_amarilla", "frunas_naranja",
            "frunas_roja", "frunas_verde", "jet_azul", "jumbo_naranja", "jumbo_roja"]
 class_dict = {classes[i]: i for i in range(10)}
-
-feature_names = ["r_h1", "r_h2", "r_h3",
-                 "g_h1", "g_h2", "g_h3",
-                 "b_h1", "b_h2", "b_h3",
-                 "r_sigma_h1", "r_sigma_h2", "r_sigma_h3",
-                 "g_sigma_h1", "g_sigma_h2", "g_sigma_h3",
-                 "b_sigma_h1", "b_sigma_h2", "b_sigma_h3"]
 
 if not os.path.exists("a/features") or OVERWRITE:
     tr_x = []
@@ -121,35 +153,55 @@ else:
     with open("a/features", "rb") as f:
         train_x, train_y, test_x, test_y = pickle.load(f)
 
-model = Sequential()
+        #print(np.mean(train_x))
+        #print(np.std(train_x))
+        #print(np.mean(test_x))
+        #print(np.std(test_x))
 
-model.add(Dense(units=36, activation='sigmoid', input_dim=18))
-model.add(Dense(units=36, activation='sigmoid'))
-model.add(Dense(units=10, activation='softmax'))
+mean = np.mean(train_x)
+std = np.std(train_x)
 
-model.compile(loss='categorical_crossentropy',
-              optimizer='sgd',
-              metrics=['accuracy'])
+train_x = (train_x - mean) / std
+test_x = (test_x - mean) / std
 
-#feature_columns = [tf.feature_column.numeric_column(key=feature_name) for feature_name in feature_names]
+mn = np.min(train_x)
+mx = np.max(train_x)
 
-#classifier = tf.estimator.DNNClassifier(feature_columns=feature_columns,
-#                                        hidden_units=[36, 36],
-#                                        n_classes=10,
-#                                        model_dir="model")
+#train_x = (train_x + 1) / 2
+#test_x = (test_x + 1) / 2
 
-if TRAIN:
-#    classifier.train(input_fn=lambda: train_input_fn(train_x, train_y, 1),
-#                     steps=10000)
+print(mean)
+print(std)
 
-    model.fit(train_x, train_y, epochs=100, batch_size=10)
+print(np.mean(train_x))
+print(np.std(train_x))
+print(np.mean(test_x))
+print(np.std(test_x))
 
-    model.save('model.h5')
+print(np.min(train_x))
+print(np.max(train_x))
+print(np.min(test_x))
+print(np.max(test_x))
 
-loss_and_metrics = model.evaluate(test_x, test_y, batch_size=10)
+if not os.path.exists("model.h5"):
+    model = Sequential()
 
-print(loss_and_metrics)
+    model.add(Dense(units=36, activation='relu', input_dim=21))
+    model.add(Dense(units=10, activation='softmax'))
 
-#eval_result = classifier.evaluate(input_fn=lambda: eval_input_fn(test_x, test_y, 1))
+    sgd = SGD(decay=0.01)
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=sgd,
+                  metrics=['accuracy'])
 
-#print(eval_result)
+    if TRAIN:
+        model.fit(train_x, train_y, epochs=3000, batch_size=100)
+
+        model.save('model.h5')
+
+    loss_and_metrics = model.evaluate(test_x, test_y, batch_size=100)
+
+    print(loss_and_metrics)
+else:
+    model = load_model("model.h5")
+
