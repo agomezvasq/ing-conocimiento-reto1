@@ -1,11 +1,13 @@
 import cv2
 import os
 import numpy as np
-import tensorflow as tf
+#import tensorflow as tf
+from keras.models import Sequential
+from keras.layers import Dense
 import pickle
 
 OVERWRITE = False
-TRAIN = False
+TRAIN = True
 
 
 def get_features(img):
@@ -29,38 +31,42 @@ def shuffle_unison(a, b):
     return a[p], b[p]
 
 
-def train_input_fn(features, labels, batch_size):
-    dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
+#def train_input_fn(features, labels, batch_size):
+#    dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
 
-    return dataset.shuffle(10000).repeat().batch(batch_size)
+#    return dataset.shuffle(10000).repeat().batch(batch_size)
 
 
-def eval_input_fn(features, labels, batch_size):
-    features = dict(features)
-    if labels is None:
-        inputs = features
-    else:
-        inputs = (features, labels)
+#def eval_input_fn(features, labels, batch_size):
+#    features = dict(features)
+#    if labels is None:
+#        inputs = features
+#    else:
+#        inputs = (features, labels)
 
-    dataset = tf.data.Dataset.from_tensor_slices(inputs)
+#    dataset = tf.data.Dataset.from_tensor_slices(inputs)
 
-    return dataset.batch(batch_size)
+#    return dataset.batch(batch_size)
 
 
 def feed(img):
     features = get_features(img)
 
     #x = dict(list(zip(feature_names, np.array(features).T)))
-    x = {feature_names[i]: [features[i]] for i in range(18)}
+    x = np.array(features)
 
-    predictions = classifier.predict(input_fn=lambda: eval_input_fn(x, labels=None, batch_size=1))
+    classes = model.predict(x, batch_size=10)
 
-    prediction = next(predictions)
+    return classes
 
-    class_id = prediction["class_ids"][0]
-    probability = prediction["probabilities"][class_id]
+#    predictions = classifier.predict(input_fn=lambda: eval_input_fn(x, labels=None, batch_size=1))
 
-    return classes[class_id], str(probability * 100) + "%"
+#    prediction = next(predictions)
+
+#    class_id = prediction["class_ids"][0]
+#    probability = prediction["probabilities"][class_id]
+
+#    return classes[class_id], str(probability * 100) + "%"
 
 
 classes = ["chocorramo", "flow_blanca", "flow_negra", "frunas_amarilla", "frunas_naranja",
@@ -92,7 +98,10 @@ if not os.path.exists("a/features") or OVERWRITE:
                 features = get_features(img)
 
                 f.append(features)
-                l.append(class_dict[os.path.basename(subdir)])
+                label = class_dict[os.path.basename(subdir)]
+                arr = np.zeros(10)
+                arr[label] = 1
+                l.append(arr)
         if len(files) != 0:
             x, y = shuffle_unison(np.array(f), np.array(l))
             cutoff = int(len(x) * 0.7)
@@ -101,10 +110,10 @@ if not os.path.exists("a/features") or OVERWRITE:
             t_x.extend(x[cutoff:])
             t_y.extend(y[cutoff:])
 
-    train_x = dict(list(zip(feature_names, np.array(tr_x).T)))
-    train_y = tr_y
-    test_x = dict(list(zip(feature_names, np.array(t_x).T)))
-    test_y = t_y
+    train_x = np.array(tr_x)
+    train_y = np.array(tr_y)
+    test_x = np.array(t_x)
+    test_y = np.array(t_y)
 
     with open("a/features", "wb") as f:
         pickle.dump((train_x, train_y, test_x, test_y), f)
@@ -112,17 +121,35 @@ else:
     with open("a/features", "rb") as f:
         train_x, train_y, test_x, test_y = pickle.load(f)
 
-feature_columns = [tf.feature_column.numeric_column(key=feature_name) for feature_name in feature_names]
+model = Sequential()
 
-classifier = tf.estimator.DNNClassifier(feature_columns=feature_columns,
-                                        hidden_units=[36, 36],
-                                        n_classes=10,
-                                        model_dir="model")
+model.add(Dense(units=36, activation='sigmoid', input_dim=18))
+model.add(Dense(units=36, activation='sigmoid'))
+model.add(Dense(units=10, activation='softmax'))
+
+model.compile(loss='categorical_crossentropy',
+              optimizer='sgd',
+              metrics=['accuracy'])
+
+#feature_columns = [tf.feature_column.numeric_column(key=feature_name) for feature_name in feature_names]
+
+#classifier = tf.estimator.DNNClassifier(feature_columns=feature_columns,
+#                                        hidden_units=[36, 36],
+#                                        n_classes=10,
+#                                        model_dir="model")
 
 if TRAIN:
-    classifier.train(input_fn=lambda: train_input_fn(train_x, train_y, 1),
-                     steps=10000)
+#    classifier.train(input_fn=lambda: train_input_fn(train_x, train_y, 1),
+#                     steps=10000)
 
-eval_result = classifier.evaluate(input_fn=lambda: eval_input_fn(test_x, test_y, 1))
+    model.fit(train_x, train_y, epochs=100, batch_size=10)
 
-print(eval_result)
+    model.save('model.h5')
+
+loss_and_metrics = model.evaluate(test_x, test_y, batch_size=10)
+
+print(loss_and_metrics)
+
+#eval_result = classifier.evaluate(input_fn=lambda: eval_input_fn(test_x, test_y, 1))
+
+#print(eval_result)
