@@ -80,18 +80,12 @@ def get_features(img):
 
     #print(r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h, np.array([width, height, area]))
 
-    return np.concatenate((r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h, np.array([width, height, area])))
+    return np.concatenate((r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h, np.array([width, height])))
 
 
 def shuffle_unison(a, b):
     p = np.random.permutation(len(a))
     return a[p], b[p]
-
-
-def normalize(a):
-    a_prime = (a - np.mean(a, 0)) / np.std(a, 0)
-
-    return (a_prime + 1) / 2
 
 
 def feed(img):
@@ -186,10 +180,10 @@ print(np.max(test_x))
 if not os.path.exists("model.h5"):
     model = Sequential()
 
-    model.add(Dense(units=36, activation='relu', input_dim=21))
+    model.add(Dense(units=60, activation='relu', input_dim=20))
     model.add(Dense(units=10, activation='softmax'))
 
-    sgd = SGD(decay=0.01)
+    sgd = SGD(decay=0.00001)
     model.compile(loss='categorical_crossentropy',
                   optimizer=sgd,
                   metrics=['accuracy'])
@@ -198,10 +192,10 @@ if not os.path.exists("model.h5"):
         model.fit(train_x, train_y, epochs=3000, batch_size=100)
 
         model.save('model.h5')
-
-    loss_and_metrics = model.evaluate(test_x, test_y, batch_size=100)
-
-    print(loss_and_metrics)
 else:
     model = load_model("model.h5")
+
+loss_and_metrics = model.evaluate(test_x, test_y, batch_size=100)
+
+print(loss_and_metrics)
 
