@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 
-WATCH_FEATURES = False
+WATCH_FEATURES = True
 
 
 def bounding_box(mask):
@@ -38,13 +38,13 @@ if WATCH_FEATURES:
                 i = 0
                 j += 1
 
-    for subdir, dirs, files in os.walk("data/train/mog_mask"):
+    for subdir, dirs, files in os.walk("data/train/extracted3"):
         for filename in files:
             if filename.endswith(".png"):
                 img = cv2.imread(subdir + "/" + filename)
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-                _, thresh = cv2.threshold(img, 220, 255, cv2.THRESH_BINARY)
+                _, thresh = cv2.threshold(img, 1, 255, cv2.THRESH_BINARY)
 
                 parts = os.path.splitext(filename)
                 original = cv2.imread("data/train/cropped2/" + os.path.basename(subdir) + "/" + parts[0] + ".png")

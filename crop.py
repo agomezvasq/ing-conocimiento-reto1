@@ -3,10 +3,12 @@ import cv2
 
 
 def crop(img):
-    height, width, n_channels = img.shape
+    height, width = img.shape
+    if width < height:
+        return img
     if width != height:
         img = img[:, int(width / 2 - height / 2):int(width / 2 + height / 2)]
-        height, width, n_channels = img.shape
+        height, width = img.shape
     return img[:, int(width / 2 - height / 2 + width / 6):int(width / 2 + height / 2 - width / 6)]
 
 

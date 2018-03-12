@@ -1,26 +1,29 @@
 import os
 import cv2
 import numpy as np
+import random
+import crop
 
-n = 4493
-print(n)
+n = 10
 
-avg = np.zeros((1080, 1080, 3))
+avg = np.zeros((1080, 1080))
 
 i = 0
 
-for subdir, dirs, files in os.walk("data/train/cropped"):
-    for filename in files:
-        if filename.endswith(".jpg"):
-            img = cv2.imread(subdir + "/" + filename)
+lst = list(os.listdir("data/train/band"))
+random.shuffle(lst)
 
-            height, width, channels = img.shape
+selection = lst[:n]
 
-            if height == 1080:
-                avg += img.astype("float") / n
-                i += 1
-                print(i)
-            else:
-                print(subdir + "/" + filename)
+for filename in selection:
+    img = cv2.imread("data/train/band/" + filename, cv2.IMREAD_GRAYSCALE)
 
-cv2.imwrite("data/train/avg_dataset.png", avg)
+    height, width = img.shape
+
+    if height == 1080:
+        avg += img.astype("float") / n
+        i += 1
+        print(i)
+
+avg = crop.crop(avg)
+cv2.imwrite("data/train/avg_random_band.png", avg)
