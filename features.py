@@ -5,6 +5,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import SGD
 from keras.models import load_model
+from sklearn import svm
 import pickle
 
 OVERWRITE = False
@@ -51,8 +52,6 @@ def get_features(img):
 
     _, (width, height), _ = cv2.minAreaRect(max_area_cnt)
 
-    area = width * height
-
     #r_h /= 10000
     #g_h /= 10000
     #b_h /= 10000
@@ -95,11 +94,14 @@ def feed(img):
 
     x = (x - mean) / std
 
-    prediction = model.predict(x, batch_size=10)[0]
+    prediction = clf.predict(x)[0]
 
-    index = np.argmax(prediction)
+    #prediction = model.predict(x, batch_size=10)[0]
 
-    return classes[index], "Probability: " + "{0:.2f}".format(prediction[index] * 100) + "%"
+    #index = np.argmax(prediction)
+
+    #return classes[index], "Probability: " + "{0:.2f}".format(prediction[index] * 100) + "%"
+    return classes[prediction]
 
 
 classes = ["chocorramo", "flow_blanca", "flow_negra", "frunas_amarilla", "frunas_naranja",
@@ -127,7 +129,7 @@ if not os.path.exists("a/features") or OVERWRITE:
                 label = class_dict[os.path.basename(subdir)]
                 arr = np.zeros(10)
                 arr[label] = 1
-                l.append(arr)
+                l.append(label)
         if len(files) != 0:
             x, y = shuffle_unison(np.array(f), np.array(l))
             cutoff = int(len(x) * 0.7)
@@ -177,25 +179,34 @@ print(np.max(train_x))
 print(np.min(test_x))
 print(np.max(test_x))
 
-if not os.path.exists("model.h5"):
-    model = Sequential()
+#if not os.path.exists("model.h5"):
+#    model = Sequential()
 
-    model.add(Dense(units=60, activation='relu', input_dim=20))
-    model.add(Dense(units=10, activation='softmax'))
+#    model.add(Dense(units=60, activation='relu', input_dim=20))
+#    model.add(Dense(units=10, activation='softmax'))
 
-    sgd = SGD(decay=0.00001)
-    model.compile(loss='categorical_crossentropy',
-                  optimizer=sgd,
-                  metrics=['accuracy'])
+#    sgd = SGD(decay=0.00001)
+#    model.compile(loss='categorical_crossentropy',
+#                  optimizer=sgd,
+#                  metrics=['accuracy'])
 
+#    if TRAIN:
+#        model.fit(train_x, train_y, epochs=3000, batch_size=100)
+
+#        model.save('model.h5')
+#else:
+#    model = load_model("model.h5")
+
+#loss_and_metrics = model.evaluate(test_x, test_y, batch_size=100)
+
+#print(loss_and_metrics)
+
+if not os.path.exists("model.m"):
     if TRAIN:
-        model.fit(train_x, train_y, epochs=3000, batch_size=100)
-
-        model.save('model.h5')
+        clf = svm.SVC()
+        clf.fit(train_x, train_y)
+        with open("model.m", "wb") as f:
+            pickle.dump(clf, f)
 else:
-    model = load_model("model.h5")
-
-loss_and_metrics = model.evaluate(test_x, test_y, batch_size=100)
-
-print(loss_and_metrics)
-
+    with open("model.m", "rb") as f:
+        clf = pickle.load(f)

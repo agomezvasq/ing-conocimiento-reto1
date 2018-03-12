@@ -2,7 +2,29 @@ import os
 import cv2
 import numpy as np
 
-EXTRACT = True
+EXTRACT = False
+
+
+def extract(img):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    gray = cv2.equalizeHist(gray)
+    # clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    # gray = clahe.apply(gray)
+
+    subtracted = cv2.absdiff(avg_band, gray)
+
+    # subtracted = cv2.equalizeHist(subtracted)
+
+    _, mask = cv2.threshold(subtracted, 100, 255, cv2.THRESH_BINARY)
+
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+
+    morphed_open = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=3)
+
+    morphed_closed = cv2.morphologyEx(morphed_open, cv2.MORPH_CLOSE, kernel, iterations=6)
+
+    return morphed_closed, mask, morphed_open
 
 
 def normalized_rgb(img):

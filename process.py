@@ -3,7 +3,7 @@ import cv2
 import crop
 import classify
 from classify import Type
-import extract2
+import extract
 import watch_features
 import features
 
@@ -19,7 +19,7 @@ def process(img):
     t = classify.classify(img)
     if t == Type.BAND:
         return t, None, img, img, (None, None, None, None)
-    mask, _, _ = extract2.extract(img)
+    mask, _, _ = extract.extract(img)
     masked = cv2.bitwise_and(img, img, mask=mask)
     x, y, w, h = watch_features.bounding_box(mask)
     #img = img[y:y+h, x:x+w]
