@@ -52,6 +52,10 @@ def get_features(img):
 
     _, (width, height), _ = cv2.minAreaRect(max_area_cnt)
 
+    h, _, _ = cv2.split(cv2.cvtColor(img, cv2.COLOR_BGR2HSV))
+
+    h_hist, _ = np.histogram(h, bins=np.arange(0, 180, 180 / 11))
+
     #r_h /= 10000
     #g_h /= 10000
     #b_h /= 10000
@@ -80,6 +84,7 @@ def get_features(img):
     #print(r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h, np.array([width, height, area]))
 
     return np.concatenate((r_h, g_h, b_h, r_sigma_h, g_sigma_h, b_sigma_h, np.array([width, height])))
+    #return np.concatenate((h_hist, np.array([width, height])))
 
 
 def shuffle_unison(a, b):
@@ -210,3 +215,11 @@ if not os.path.exists("model.m"):
 else:
     with open("model.m", "rb") as f:
         clf = pickle.load(f)
+
+train_h = clf.predict(train_x)
+train_match = np.sum(train_y == train_h)
+print("Train accuracy: " + str(train_match / train_x.shape[0]))
+
+test_h = clf.predict(test_x)
+test_match = np.sum(test_y == test_h)
+print("Test accuracy: " + str(test_match / test_x.shape[0]))

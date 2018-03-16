@@ -3,25 +3,87 @@ import process
 from classify import Type
 import features
 
-filename = "data/test/videos/2018-02-23-093504.webm"
+
+def max_key(dct):
+    return
+
+
+filename = "data/test/videos/2018-02-23-094148.webm"
 
 cv2.namedWindow("window", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("window", 1280, 720)
 
 cap = cv2.VideoCapture(filename)
 
+classes = {"chocorramo": 0,
+           "flow_blanca": 0,
+           "flow_negra": 0,
+           "frunas_amarilla": 0,
+           "frunas_naranja": 0,
+           "frunas_roja": 0,
+           "frunas_verde": 0,
+           "jet_azul": 0,
+           "jumbo_naranja": 0,
+           "jumbo_roja": 0}
+
+total = {"chocorramo": 0,
+         "flow_blanca": 0,
+         "flow_negra": 0,
+         "frunas_amarilla": 0,
+         "frunas_naranja": 0,
+         "frunas_roja": 0,
+         "frunas_verde": 0,
+         "jet_azul": 0,
+         "jumbo_naranja": 0,
+         "jumbo_roja": 0}
+
 while cap.isOpened():
     ret, img = cap.read()
 
     t, f, img, masked, (x, y, w, h) = process.process(img)
 
-    if t != Type.BAND:
-        cv2.rectangle(masked, (x, y), (x + w, y + h), (0, 0, 255), thickness=2)
+    if t != Type.BAND and w != 0 and h != 0:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), thickness=2)
 
-        cropped_img = masked[y:y + h, x:x + w]
+        cropped_img = img[y:y + h, x:x + w]
 
-        print(features.feed(cropped_img))
+        prediction = features.feed(cropped_img)
 
-    cv2.imshow("window", masked)
+        classes[prediction] += 1
+
+        mx = max(classes, key=classes.get)
+
+        s = sum(classes.values())
+
+        #print(mx + ": " + str(classes[mx]))
+        #print(mx)
+
+        cv2.putText(img, prediction, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
+
+        #print()
+    else:
+        s = sum(classes.values())
+
+        if s != 0:
+            #print({k: str(v / s * 100) + "%" for k, v in classes.items()})
+
+            mx = max(classes, key=classes.get)
+
+            total[mx] += 1
+
+            print(total)
+
+        classes = {"chocorramo": 0,
+                   "flow_blanca": 0,
+                   "flow_negra": 0,
+                   "frunas_amarilla": 0,
+                   "frunas_naranja": 0,
+                   "frunas_roja": 0,
+                   "frunas_verde": 0,
+                   "jet_azul": 0,
+                   "jumbo_naranja": 0,
+                   "jumbo_roja": 0}
+
+    cv2.imshow("window", img)
 
     cv2.waitKey(33)

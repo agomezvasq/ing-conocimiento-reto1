@@ -88,7 +88,7 @@ if EXTRACT:
         #open_i = classes[basename]["open"]
         #close_i = classes[basename]["close"]
 
-        threshold = 100
+        threshold = 110
         open_i = 3
         close_i = 6
 
