@@ -4,9 +4,9 @@ import numpy as np
 import random
 import crop
 
-n = 10
+n = 150
 
-avg = np.zeros((1080, 1080))
+avg = np.zeros((1080, 720))
 
 i = 0
 
@@ -25,5 +25,5 @@ for filename in selection:
         i += 1
         print(i)
 
-avg = crop.crop(avg)
+#avg = crop.crop(avg)
 cv2.imwrite("data/train/avg_random_band.png", avg)

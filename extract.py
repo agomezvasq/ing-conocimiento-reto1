@@ -16,7 +16,7 @@ def extract(img):
 
     # subtracted = cv2.equalizeHist(subtracted)
 
-    _, mask = cv2.threshold(subtracted, 100, 255, cv2.THRESH_BINARY)
+    _, mask = cv2.threshold(subtracted, 110, 255, cv2.THRESH_BINARY)
 
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
 

@@ -8,12 +8,16 @@ def max_key(dct):
     return
 
 
-filename = "data/test/videos/2018-02-23-094148.webm"
+filename = "data/test/videos/2018-02-23-093504.webm"
 
 cv2.namedWindow("window", cv2.WINDOW_NORMAL)
-cv2.resizeWindow("window", 1280, 720)
+cv2.resizeWindow("window", 960, 540)
 
-cap = cv2.VideoCapture(filename)
+cap = cv2.VideoCapture(1)
+
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+#cap.set(cv2.CAP_PROP_BRIGHTNESS, 0.3)
 
 classes = {"chocorramo": 0,
            "flow_blanca": 0,
@@ -37,15 +41,20 @@ total = {"chocorramo": 0,
          "jumbo_naranja": 0,
          "jumbo_roja": 0}
 
+import crop
+i = 1
+
 while cap.isOpened():
     ret, img = cap.read()
+
+    #img = cv2.resize(img, (1920, 1080))
 
     t, f, img, masked, (x, y, w, h) = process.process(img)
 
     if t != Type.BAND and w != 0 and h != 0:
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), thickness=2)
 
-        cropped_img = img[y:y + h, x:x + w]
+        cropped_img = masked[y:y + h, x:x + w]
 
         prediction = features.feed(cropped_img)
 

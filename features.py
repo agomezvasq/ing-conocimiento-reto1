@@ -1,10 +1,10 @@
 import cv2
 import os
 import numpy as np
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.optimizers import SGD
-from keras.models import load_model
+#from keras.models import Sequential
+#from keras.layers import Dense
+#from keras.optimizers import SGD
+#from keras.models import load_model
 from sklearn import svm
 import pickle
 

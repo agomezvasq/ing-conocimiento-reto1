@@ -1,8 +1,8 @@
 import os
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-import matplotlib.gridspec as gridspec
+#from matplotlib import pyplot as plt
+#import matplotlib.gridspec as gridspec
 
 WATCH_FEATURES = False
 
@@ -85,28 +85,28 @@ if WATCH_FEATURES:
                     m = max(np.max(r_h), np.max(g_h), np.max(b_h))
                     m_sigma = max(np.max(r_sigma_h), np.max(g_sigma_h), np.max(b_sigma_h))
 
-                    gs = gridspec.GridSpec(3, 4)
+                    #gs = gridspec.GridSpec(3, 4)
 
-                    plt.subplot(gs[:, :2])
-                    plt.imshow(cv2.cvtColor(object_cropped, cv2.COLOR_BGR2RGB))
-                    ax = plt.subplot(gs[0, 2])
-                    ax.set_ylim(0, m)
-                    plt.plot(r_h, color='r')
-                    ax = plt.subplot(gs[1, 2])
-                    ax.set_ylim(0, m)
-                    plt.plot(g_h, color='g')
-                    ax = plt.subplot(gs[2, 2])
-                    ax.set_ylim(0, m)
-                    plt.plot(b_h, color='b')
-                    ax = plt.subplot(gs[0, 3])
-                    ax.set_ylim(0, m_sigma)
-                    plt.plot(r_sigma_h, color='r')
-                    ax = plt.subplot(gs[1, 3])
-                    ax.set_ylim(0, m_sigma)
-                    plt.plot(g_h, color='g')
-                    ax = plt.subplot(gs[2, 3])
-                    ax.set_ylim(0, m_sigma)
-                    plt.plot(b_h, color='b')
+                    #plt.subplot(gs[:, :2])
+                    #plt.imshow(cv2.cvtColor(object_cropped, cv2.COLOR_BGR2RGB))
+                    #ax = plt.subplot(gs[0, 2])
+                    #ax.set_ylim(0, m)
+                    #plt.plot(r_h, color='r')
+                    #ax = plt.subplot(gs[1, 2])
+                    #ax.set_ylim(0, m)
+                    #plt.plot(g_h, color='g')
+                    #ax = plt.subplot(gs[2, 2])
+                    #ax.set_ylim(0, m)
+                    #plt.plot(b_h, color='b')
+                    #ax = plt.subplot(gs[0, 3])
+                    #ax.set_ylim(0, m_sigma)
+                    #plt.plot(r_sigma_h, color='r')
+                    #ax = plt.subplot(gs[1, 3])
+                    #ax.set_ylim(0, m_sigma)
+                    #plt.plot(g_h, color='g')
+                    #ax = plt.subplot(gs[2, 3])
+                    #ax.set_ylim(0, m_sigma)
+                    #plt.plot(b_h, color='b')
 
                     print("r_h: " + str(r_h))
                     print("g_h: " + str(g_h))
@@ -116,5 +116,5 @@ if WATCH_FEATURES:
                     print("b_sigma_h: " + str(b_sigma_h))
                     print()
 
-                    plt.show()
-                    plt.close()
+                    #plt.show()
+                    #plt.close()
